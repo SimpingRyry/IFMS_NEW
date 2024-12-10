@@ -19,7 +19,17 @@ if(isset($_POST['loginBtn']))
                 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                 if($row['role'] == 'admin')
                 {
+                    $_SESSION['auth'] = true;
+                    $_SESSION['loggedInUserRole'] = $row['role'];
+                    $_SESSION['loggedInUser'] = [
+                        'name' => $row['name'],
+                        'email' => $row['email']
+                    ];
+                    
                     redirect('home_page.php', 'Logged In Successfully');
+                }
+                else{
+                    redirect('index.php', 'Ok');
                 }
             }else{
                 redirect('index.php','Invalid Email or Password');

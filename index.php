@@ -30,7 +30,7 @@
                     </div>
                     <form action="login.php" method="POST">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6" name="username" placeholder="Username">
+                        <input type="email" class="form-control form-control-lg bg-light fs-6" name="email" placeholder="Email">
                     </div>
                     <div class="input-group mb-1">
                         <input type="password" class="form-control form-control-lg bg-light fs-6" name="password" placeholder="Password">
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <button value="Login" class="btn btn-lg btn-primary w-100 fs-6 background-color: #0e1111;">Login</button>
+                        <button type="submit" name="loginBtn" class="btn btn-lg btn-primary w-100 fs-6 background-color: #0e1111;">Login</button>
                     </div>
                     </form>
                     <div class="input-group mb-3">

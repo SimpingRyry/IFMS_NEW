@@ -166,7 +166,7 @@
     <!------------------------------------------------------ MAIN_BOX -------------------------------------------------------->
     <main>
         <div class="container mt-5 pt-5 shadow">
-            <div class="container shadow p-0" id="main_box" style="border: 2px solid black;">
+            <div class="container shadow p-0" style="border: 2px solid black;">
                 <!-- Header Section -->
                 <div class="dashboard-header d-flex justify-content-between align-items-center" style="background-color: #990D35; padding: 10px; border-bottom: 2px solid #B3293C;">
                     <h2 class="fw-bold" style="color: white;">Students</h2>
@@ -214,7 +214,7 @@
 
                         <?= alertMessage(); ?>
 
-                        <form id="addStudentForm" action="code.php" method="POST" enctype="multipart/form-data">
+                        <form action="code.php" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="student_number">Student Number:</label>
                                 <input type="text" class="form-control" id="student_number" name="student_number" required>
@@ -254,6 +254,10 @@
 
         <script>
             $(document).ready(function() {
+                const tableBody = $('#myTable tbody');
+                const hasData = tableBody.find('tr').length > 0 && !tableBody.find('td[colspan="6"]').length;
+
+                // Initialize DataTables
                 $('#myTable').DataTable();
 
                 // Function to select or unselect all checkboxes
@@ -319,6 +323,28 @@
                         // Send student numbers to delete
                         xhr.send("delete_students=true&student_numbers=" + JSON.stringify(selectedStudents));
                     }
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add event listener to each "View" button
+                const viewButtons = document.querySelectorAll('.viewButton');
+
+                viewButtons.forEach(function(button) {
+                    button.addEventListener('click', function() {
+                        // Get the student_number from the button's data-id attribute
+                        const studentNumber = button.getAttribute('data-id');
+
+                        // Now, you can either use the student_number to perform an action like
+                        // 1. Display the details on the same page using AJAX
+                        // 2. Redirect to another page with the student_number in the URL
+
+                        // Option 1: Redirect to a new page with the student_number in the URL
+                        window.location.href = 'profile_student_page.php?student_number=' + studentNumber;
+
+                        // Option 2: Use AJAX to fetch and display data on the same page (optional)
+                        // fetchStudentDetails(studentNumber);
+                    });
                 });
             });
         </script>

@@ -45,7 +45,9 @@ function fetchStudents()
                 </tr>";
         }
     } else {
-        echo "<tr><td colspan='5'>No data available</td></tr>";
+        "<tr>
+                <td colspan='6' style='text-align: center;'>No data available</td>
+              </tr>";
     }
 }
 
