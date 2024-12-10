@@ -1,0 +1,89 @@
+
+:root {
+    --offcanvas-width:270px;
+    --topNavbarHeight:66px;
+}
+
+.sidebar-nav {
+    width: var(--offcanvas-width) !important;
+}
+
+.offcanvas {
+    transition: transform 0.3s ease-in-out;
+}
+
+@media (min-width:992px) {
+    body {
+        overflow: auto !important;
+    }
+    .offcanvas-backdrop {
+        display: none ;
+    }
+    main {
+        margin-left: var(--offcanvas-width);
+    }
+    
+    .sidebar-nav {
+        transform: none !important;
+        visibility: visible !important;
+        top: var(--topNavbarHeight) !important;
+        height: calc(100% - var(--topNavbarHeight)) !important;
+    }
+}
+
+.dropdown-divider {
+    border-color: white; /* Change this to any color visible against your sidebar */
+}
+
+.navbar_slide li:first-child {
+    margin-top: 10px;
+}
+
+.navbar_slide li {
+    margin-bottom: 10px; /* Adjust this value for spacing */
+}
+
+.sidebar-link {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.sidebar-link .right-icon {
+    display: inline-flex !important;
+    transition: all ease 0.25s !important;
+}
+
+a[aria-expanded="true"] .right-icon {
+    transform: rotate(180deg) !important;
+}
+
+/* Set the background and font color */
+.profile-link {
+    background-color: #F3E158; /* Light grey background */
+    color: black !important; /* Ensure the font color is black */
+}
+
+/* Animation on page load */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.profile-link {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Optional: Add hover effect to highlight the Profile link */
+.profile-link:hover {
+    background-color: #f3e158c3; /* Slightly darker grey on hover */
+}
+
+.table-wrapper {
+    background-color: #fff;
+    /* padding: 20px 25px; */
+    margin:6px 6px 20px 6px;
+    width: 100%;
+    overflow: auto;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+}
