@@ -77,19 +77,5 @@ a[aria-expanded="true"] .right-icon {
     background-color: #f3e158c3; /* Slightly darker grey on hover */
 }
 
-.accordion-button {
-    background-color: #990D35;  
-    color: white;               
-    font-size: 1.2rem;          
-    font-weight: bold;          
-}
 
-.accordion-button:not(.collapsed) {
-    background-color: #990D35;  
-    color: white;               
-}
-
-.accordion-button:focus {
-    box-shadow: none;           /* Remove focus outline */
-}
 
