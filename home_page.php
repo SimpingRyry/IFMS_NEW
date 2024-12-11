@@ -21,6 +21,27 @@ if ($result && mysqli_num_rows($result) > 0) {
 } else {
     $profileImage = 'uploads/default_profile.png'; // Default profile image if none is found
 }
+
+$s_count_query = "SELECT COUNT(*) AS row_count FROM student_list";
+$student_count_result = mysqli_query($conn, $s_count_query);
+$student_count = 0;
+if ($student_count_result && mysqli_num_rows($student_count_result) > 0) {
+    $student_row = mysqli_fetch_assoc($student_count_result);
+    $student_count = $student_row['row_count'];
+}
+
+// Fetch the count of counseling cases
+$c_count_query = "SELECT COUNT(*) AS row_count FROM indiv_counselling";
+$case_count_result = mysqli_query($conn, $c_count_query);
+$case_count = 0;
+if ($case_count_result && mysqli_num_rows($case_count_result) > 0) {
+    $case_row = mysqli_fetch_assoc($case_count_result);
+    $case_count = $case_row['row_count'];
+}
+
+
+
+
 ?>
 
 
@@ -203,10 +224,10 @@ if ($result && mysqli_num_rows($result) > 0) {
             <div class="card-body d-flex align-items-center">
               <img src="images/counseling_ico.png" alt="Image 1" style="width: 50px; height: 50px; margin-right: 15px;">
               <div>
-                <h5 class="card-title">Counseling CasesBox 1</h5>
+                <h5 class="card-title">Counseling Cases</h5>
               </div>
               <div id="uniqueText1" style="position: absolute; bottom: 10px; right: 10px; font-size: 20px; color: white;">
-                9
+              <?php echo $case_count; ?>
               </div>
             </div>
           </div>
@@ -219,7 +240,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                 <h5 class="card-title">Students on Record</h5>
               </div>
               <div id="uniqueText3" style="position: absolute; bottom: 10px; right: 10px; font-size: 20px; color: white;">
-                9
+              <?php echo $student_count; ?>
               </div>
             </div>
           </div>
