@@ -253,7 +253,7 @@ if ($case_count_result && mysqli_num_rows($case_count_result) > 0) {
                 <h5 class="card-title">Number of Visits</h5>
               </div>
               <div id="uniqueText3" style="position: absolute; bottom: 10px; right: 10px; font-size: 20px; color: white;">
-                10000
+                1
               </div>
             </div>
           </div>
