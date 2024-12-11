@@ -1,11 +1,28 @@
 <?php
-/*
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'];
-    echo "Hello, $name!";
+session_start();
+require './php_functions/function.php'; // Include database connection
+
+// Check if the user is authenticated
+if (!isset($_SESSION['auth']) || $_SESSION['auth'] !== true) {
+    header("Location: index.php");
+    exit();
 }
-*/
+
+// Get the student number from the session
+$studentNumber = mysqli_real_escape_string($conn, $_SESSION['loggedInUser']['student_number']);
+
+// Query to fetch the image filename
+$query = "SELECT image FROM student_list WHERE student_number = '$studentNumber' LIMIT 1";
+$result = mysqli_query($conn, $query);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $profileImage = 'uploads/' . $row['image']; // Construct the path to the image
+} else {
+    $profileImage = 'uploads/default_profile.png'; // Default profile image if none is found
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
-              <i class="bi bi-gear-fill"></i>
+              <img alt="profile_icon" src="<?php echo htmlspecialchars($profileImage); ?>" style="width:30px; border-radius:50%;"/>
             </a>
             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDarkDropdownMenuLink">
               <li><a class="dropdown-item" href="#">Action</a></li>

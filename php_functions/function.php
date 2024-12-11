@@ -30,7 +30,7 @@ function alertMessage()
 function fetchStudents()
 {
     global $conn; // Use the global database connection
-    $query = "SELECT student_number, student_name, `course/year/section`, status FROM student_list";
+    $query = "SELECT student_number, student_name, course_year_section, status FROM student_list";
     $result = mysqli_query($conn, $query);
 
     if ($result && mysqli_num_rows($result) > 0) {
@@ -39,28 +39,35 @@ function fetchStudents()
                     <td><input type='checkbox' class='studentCheckbox' value='" . htmlspecialchars($row['student_number']) . "'></td>
                     <td>" . htmlspecialchars($row['student_number']) . "</td>
                     <td>" . htmlspecialchars($row['student_name']) . "</td>
-                    <td>" . htmlspecialchars($row['course/year/section']) . "</td>
+                    <td>" . htmlspecialchars($row['course_year_section']) . "</td>
                     <td>" . htmlspecialchars($row['status']) . "</td>
-                    <td><button class='btn btn-primary'>View</button></td>
+                    <td>
+                        <button class='btn btn-primary' onclick=\"console.log('Redirecting to profile with student_number: " . htmlspecialchars($row['student_number']) . "'); redirectToProfile('" . htmlspecialchars($row['student_number']) . "')\">View</button>
+                    </td>
                 </tr>";
         }
     } else {
-        "<tr>
+        echo "<tr>
                 <td colspan='6' style='text-align: center;'>No data available</td>
               </tr>";
     }
 }
 
+
 function add_student($student_number, $student_name, $course_year_section, $status, $image)
 {
     global $conn;
 
-    // Handle image upload
+    // Ensure the 'uploads' directory exists
     $target_dir = "uploads/";
+    if (!is_dir($target_dir)) {
+        mkdir($target_dir, 0777, true); // Create directory with appropriate permissions
+    }
+
     $target_file = $target_dir . basename($image["name"]);
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-    // Check if the image is a valid file
+    // Check if the image is a valid file type
     if (in_array($imageFileType, ["jpg", "png", "jpeg", "gif"])) {
         if (move_uploaded_file($image["tmp_name"], $target_file)) {
             // Image uploaded successfully
@@ -83,6 +90,7 @@ function add_student($student_number, $student_name, $course_year_section, $stat
         return false; // Error inserting
     }
 }
+
 
 function delete_row($student_numbers)
 {

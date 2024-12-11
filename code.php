@@ -28,10 +28,10 @@ if (isset($_POST['saveUser'])) {
                 echo "<script>alert('Image size too large. Please upload an image less than 1MB.');</script>";
             } else {
                 $newImageName = uniqid() . '.' . $imageExtension;
-                move_uploaded_file($tmpName, 'img/' . $newImageName);
+                move_uploaded_file($tmpName, 'uploads/'. $newImageName);
 
                 // Insert into database
-                $query = "INSERT INTO student_list (student_number, student_name, `course/year/section`, `status`, `image`) 
+                $query = "INSERT INTO student_list (student_number, student_name, `course_year_section`, `status`, `image`) 
                           VALUES ('$student_num', '$student_name', '$student_course', '$student_status', '$newImageName')";
 
                 $result = mysqli_query($conn, $query);

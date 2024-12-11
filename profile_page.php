@@ -25,7 +25,7 @@
 
             <a class="navbar-brand fw-bold me-auto" href="#" style="color: white;">
                 <img src="images/cn_solo_logo.png" alt="" width="45" height="35">
-                <img src="images/ifms_txt.png" alt="" width="120" height="40" style="margin-left: 5px;">
+                <img src="images/ifms_txt.png" alt="" width="120" height="30" style="margin-left: 5px;">
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -177,7 +177,7 @@
                 </div>
 
                 <!-- Table Section -->
-                <div class="table-wrapper p-4">
+                <div class="table-responsive p-4">
                     <table id="myTable" class="table table-bordered table-striped table-hover">
                         <thead>
                             <tr>
@@ -326,27 +326,11 @@
                 });
             });
 
-            document.addEventListener('DOMContentLoaded', function() {
-                // Add event listener to each "View" button
-                const viewButtons = document.querySelectorAll('.viewButton');
-
-                viewButtons.forEach(function(button) {
-                    button.addEventListener('click', function() {
-                        // Get the student_number from the button's data-id attribute
-                        const studentNumber = button.getAttribute('data-id');
-
-                        // Now, you can either use the student_number to perform an action like
-                        // 1. Display the details on the same page using AJAX
-                        // 2. Redirect to another page with the student_number in the URL
-
-                        // Option 1: Redirect to a new page with the student_number in the URL
-                        window.location.href = 'profile_student_page.php?student_number=' + studentNumber;
-
-                        // Option 2: Use AJAX to fetch and display data on the same page (optional)
-                        // fetchStudentDetails(studentNumber);
-                    });
-                });
-            });
+            function redirectToProfile(studentNumber) {
+                console.log("Redirecting to profile of student: " + studentNumber);
+                // Redirect to the profile page with Student_Number as a query parameter
+                window.location.href = `profile_student_page.php?student_number=${encodeURIComponent(studentNumber)}`;
+            }
         </script>
 
         <!-- Link to External JS Script -->

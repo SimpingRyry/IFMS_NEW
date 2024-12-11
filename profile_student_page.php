@@ -1,3 +1,34 @@
+<?php
+require './php_functions/dbconn.php'; // Include the database connection
+
+if (isset($_GET['student_number'])) {
+    // Sanitize the input to prevent SQL injection
+    $student_number = htmlspecialchars($_GET['student_number']);
+    
+    // Prepare the SQL query to fetch the student details
+    $query = "SELECT student_number, student_name, course_year_section, status, image 
+              FROM student_list 
+              WHERE student_number = ?";
+              
+    if ($stmt = $conn->prepare($query)) {
+        $stmt->bind_param("s", $student_number); // Bind the student_number parameter
+        $stmt->execute(); // Execute the query
+        $result = $stmt->get_result(); // Fetch the result
+        
+        // Check if the student exists in the database
+        if ($result->num_rows > 0) {
+            $student = $result->fetch_assoc(); // Fetch the student's details as an associative array
+        } else {
+            $error = "Student not found.";
+        }
+        
+        $stmt->close(); // Close the statement
+    } else {
+        $error = "Database query failed.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -170,20 +201,44 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne"
-                                style="background-color: #990D35; color: white; font-size: 1.2rem; font-weight: bold;">
+                                style="background-color: #990D35; color: white; font-size: 1.2rem; font-weight: bold; box-shadow: none; border: none;">
                                 Student Details
                             </button>
                         </h2>
                         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                            <div class="accordion-body">
-                                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element.
+                            <div class="accordion-body text-center">
+                                <div class="row justify-content-center">
+                                    <!-- First Column -->
+                                    <div class="col-md-6 d-flex justify-content-center">
+                                        <div class="card border-danger p-3" style="width: 350px;"> <!-- Reduced width for a smaller box -->
+                                            <div class="d-flex flex-column align-items-center">
+                                                <!-- Round Image -->
+                                                <div class="rounded-circle bg-secondary overflow-hidden mb-3" style="width: 100px; height: 100px;">
+                                                    <img src="uploads/<?= htmlspecialchars($student['image']) ?>"  alt="Student Image" class="w-100 h-100">
+                                                </div>
+                                                <!-- Texts -->
+                                                <h5 class="text-start"><?= htmlspecialchars($student['student_name']) ?></h5>
+                                                <p class="text-start"><?= htmlspecialchars($student['student_number']) ?></p>
+                                                <p class="text-start"><?= htmlspecialchars($student['course_year_section']) ?></p>
+                                                <div class="bg-warning px-3 py-1 text-white" style="border-radius: 10px; border: 2px solid black;"><?= htmlspecialchars($student['status']) ?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Second Column -->
+                                    <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+                                        <div class="card mb-3" style="background-color: #990D35; height: 100px; width: 80%;"> <!-- Added width -->
+                                        </div>
+                                        <div class="card" style="background-color: #990D35; height: 100px; width: 80%;"> <!-- Added width -->
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo"
-                                style="background-color: #990D35; color: white; font-size: 1.2rem; font-weight: bold;">
+                                style="background-color: #990D35; color: white; font-size: 1.2rem; font-weight: bold; box-shadow: none; border: none;">
                                 Visits
                             </button>
                         </h2>
@@ -196,7 +251,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="panelsStayOpen-headingThree">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree"
-                                style="background-color: #990D35; color: white; font-size: 1.2rem; font-weight: bold;">
+                                style="background-color: #990D35; color: white; font-size: 1.2rem; font-weight: bold; box-shadow: none; border: none;">
                                 EDUCATIONAL BACKGROUND
                             </button>
                         </h2>
@@ -209,7 +264,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="panelsStayOpen-headingFour">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour"
-                                style="background-color: #990D35; color: white; font-size: 1.2rem; font-weight: bold;">
+                                style="background-color: #990D35; color: white; font-size: 1.2rem; font-weight: bold; box-shadow: none; border: none;">
                                 HOME AND FAMILY BACKGROUND
                             </button>
                         </h2>
@@ -222,7 +277,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="panelsStayOpen-headingFive">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive"
-                                style="background-color: #990D35; color: white; font-size: 1.2rem; font-weight: bold;">
+                                style="background-color: #990D35; color: white; font-size: 1.2rem; font-weight: bold; box-shadow: none; border: none;">
                                 HEALTH BACKGROUND
                             </button>
                         </h2>

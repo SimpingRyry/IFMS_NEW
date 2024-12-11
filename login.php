@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require './php_functions/function.php';
 
 if(isset($_POST['loginBtn']))
@@ -23,7 +23,8 @@ if(isset($_POST['loginBtn']))
                     $_SESSION['loggedInUserRole'] = $row['role'];
                     $_SESSION['loggedInUser'] = [
                         'name' => $row['name'],
-                        'email' => $row['email']
+                        'email' => $row['email'],
+                        'student_number' => $row['student_number']
                     ];
                     
                     redirect('home_page.php', 'Logged In Successfully');
