@@ -1,0 +1,460 @@
+
+:root {
+    --offcanvas-width:270px;
+    --topNavbarHeight:66px;
+}
+
+.sidebar-nav {
+    width: var(--offcanvas-width) !important;
+}
+
+.offcanvas {
+    transition: transform 0.3s ease-in-out;
+}
+
+@media (min-width:992px) {
+    body {
+        overflow: auto !important;
+    }
+    .offcanvas-backdrop {
+        display: none ;
+    }
+    main {
+        margin-left: var(--offcanvas-width);
+    }
+    .sidebar-nav {
+        transform: none !important;
+        visibility: visible !important;
+        top: var(--topNavbarHeight) !important;
+        height: calc(100% - var(--topNavbarHeight)) !important;
+    }
+}
+
+.dropdown-divider {
+    border-color: white; /* Change this to any color visible against your sidebar */
+}
+
+.navbar_slide li:first-child {
+    margin-top: 10px;
+}
+
+.navbar_slide li {
+    margin-bottom: 10px; /* Adjust this value for spacing */
+}
+
+.sidebar-link {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.sidebar-link .right-icon {
+    display: inline-flex !important;
+    transition: all ease 0.25s !important;
+}
+
+a[aria-expanded="true"] .right-icon {
+    transform: rotate(180deg) !important;
+}
+
+body{  
+    min-height: 40vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main_container{
+    position: relative;
+    width: 100%; 
+    max-width: 1500px;
+    padding: 0;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.main_container header{
+    position: relative;
+    font-size: 25px;
+    font-weight: 600;
+    color:#000;
+    padding: 10px 20px;
+}
+
+.buttons{
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.buttons button{
+    margin-right: 15px;
+    border-radius: 5px;
+    padding: 5px 15px;
+    transition: all 0.3s linear; /* Add smooth transition */
+}
+
+.buttons .add{
+    background-color: #16C098;
+    color: #fff;
+    border: none;
+}
+
+.buttons .add:hover{
+    background-color: #00B087;
+    transform: scale(1.1); /* Slightly enlarge the button */
+}
+
+.buttons .import{
+    background-color: #FBBC05;
+    color: #fff;
+    border: none;
+}
+
+.buttons .import:hover{
+    background-color: #F9A825;
+    transform: scale(1.1); /* Slightly enlarge the button */
+}
+
+.counseling-card {
+    display: flex;
+    border: 1px solid #000;
+    overflow: hidden;
+    margin-top: 30px;
+}
+
+.profile-section {
+    background-color: #990D35;
+    color: white;
+    padding: 30px;
+    padding-right: 500px;
+    flex: 10;
+}
+
+.recent-counseling-section {
+    background-color: #990D35;
+    position: relative;
+    border-left: 4px solid black; 
+    padding: 10px;
+}
+
+.recent-counseling-section header{
+    position: relative;
+    font-size: 30px;
+    font-weight: 600;
+    color:#fff;
+}
+.prof_dets {
+    background-color: #00B087;
+    color: white;
+    margin-top: 20px;
+}
+
+.prof_dets:hover {
+    background-color: #009270;
+}
+
+.counseling_history {
+    background-color: #00B087;
+    color: white; 
+    margin-top: 20px;
+}
+
+.counseling_history:hover {
+    background-color: #009270;
+}
+
+.editor_container {
+	max-width: 1250px;
+	width: 100%;
+	background: #fff;
+	overflow: hidden;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.editor_container header {
+    position: relative;
+    font-size: 20px;
+    font-weight: 600;
+    color:#000;
+    padding: 10px   ;
+}
+
+.btn-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	grid-gap: 10px;
+    padding: 16px;
+}
+.btn-toolbar select {
+	background: #fff;
+	border: 2px solid #ddd;
+	border-radius: 6px;
+	outline: none;
+	cursor: pointer;
+    padding: 5px 20px;
+    appearance: none; /* Removes default dropdown arrow styling */
+}
+.btn-toolbar select:hover {
+    background: #f3f3f3;
+}
+
+.btn-toolbar button {
+	background: #fff;
+	border: 2px solid #ddd;
+	border-radius: 6px;
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 18px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+.btn-toolbar button:hover {
+	background: #f3f3f3;
+}
+.btn-toolbar button.active {
+    background-color: #bbb;
+}
+#content {
+	padding: 16px;
+	outline: none;
+	max-height: 50vh;
+	overflow: auto;
+    border: 1px solid #000;
+    background: #eee;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    height: 200px;
+
+}
+
+.counseling-plan {
+    display: flex;
+    overflow: hidden;
+}
+
+.counselings {
+    color: #000;
+    padding: 20px 30px;
+}
+
+.approach_selection {
+    position: relative;
+    margin-top: 5px;
+    padding: 10px;
+}
+
+.approach_selection select {
+    background: #fff;
+	border: 2px solid #ddd;
+	border-radius: 6px;
+	outline: none;
+	cursor: pointer;
+    padding: 5px 20px;
+    appearance: none; /* Removes default dropdown arrow styling */
+}
+
+.approach_selection select:hover {
+    background: #f3f3f3;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Horizontally center the button */
+    margin-top: 20px; /* Optional spacing above the button */
+}
+
+.save {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    max-width: 200px;
+    margin: 30px;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #990D35;
+    transition: all 0.3s linear; /* Add smooth transition */
+    cursor: pointer;
+}
+
+/* Hover effect */
+.save:hover {
+    background-color: #790b2a;
+    transform: scale(1.1); /* Slightly enlarge the button */
+}
+
+.indiv-link {
+    background-color: #F3E158; /* Light grey background */
+    color: black !important; /* Ensure the font color is black */
+}
+.modal-confirm {		
+	color: #636363;
+	width: 325px;
+	font-size: 14px;
+}
+.modal-confirm .modal-content {
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+}
+.modal-confirm .modal-header {
+	border-bottom: none;   
+	position: relative;
+}
+.modal-confirm h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -15px;
+}
+.modal-confirm .form-control, .modal-confirm .btn {
+	min-height: 40px;
+	border-radius: 3px; 
+}
+.modal-confirm .close {
+	position: absolute;
+	top: -5px;
+	right: -5px;
+}	
+.modal-confirm .modal-footer {
+	border: none;
+	text-align: center;
+	border-radius: 5px;
+	font-size: 13px;
+}	
+.modal-confirm .icon-box {
+	color: #fff;		
+	position: absolute;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	top: -70px;
+	width: 95px;
+	height: 95px;
+	border-radius: 50%;
+	z-index: 9;
+	background: #82ce34;
+	padding: 15px;
+	text-align: center;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+.modal-confirm .icon-box i {
+	font-size: 58px;
+	position: relative;
+	top: 3px;
+}
+.modal-confirm.modal-dialog {
+	margin-top: 80px;
+}
+.modal-confirm .btn {
+	color: #fff;
+	border-radius: 4px;
+	background: #82ce34;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	border: none;
+}
+.modal-confirm .btn:hover, .modal-confirm .btn:focus {
+	background: #6fb32b;
+	outline: none;
+}
+.trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
+}
+
+
+.modal#statusSuccessModal .modal-content, 
+.modal#statusErrorsModal .modal-content {
+	border-radius: 30px;
+}
+.modal#statusSuccessModal .modal-content svg, 
+.modal#statusErrorsModal .modal-content svg {
+	width: 100px; 
+	display: block; 
+	margin: 0 auto;
+}
+.modal#statusSuccessModal .modal-content .path, 
+.modal#statusErrorsModal .modal-content .path {
+	stroke-dasharray: 1000; 
+	stroke-dashoffset: 0;
+}
+.modal#statusSuccessModal .modal-content .path.circle, 
+.modal#statusErrorsModal .modal-content .path.circle {
+	-webkit-animation: dash 0.9s ease-in-out; 
+	animation: dash 0.9s ease-in-out;
+}
+.modal#statusSuccessModal .modal-content .path.line, 
+.modal#statusErrorsModal .modal-content .path.line {
+	stroke-dashoffset: 1000; 
+	-webkit-animation: dash 0.95s 0.35s ease-in-out forwards; 
+	animation: dash 0.95s 0.35s ease-in-out forwards;
+}
+.modal#statusSuccessModal .modal-content .path.check, 
+.modal#statusErrorsModal .modal-content .path.check {
+	stroke-dashoffset: -100; 
+	-webkit-animation: dash-check 0.95s 0.35s ease-in-out forwards; 
+	animation: dash-check 0.95s 0.35s ease-in-out forwards;
+}
+
+@-webkit-keyframes dash { 
+	0% {
+		stroke-dashoffset: 1000;
+	}
+	100% {
+		stroke-dashoffset: 0;
+	}
+}
+@keyframes dash { 
+	0% {
+		stroke-dashoffset: 1000;
+	}
+	100%{
+		stroke-dashoffset: 0;
+	}
+}
+@-webkit-keyframes dash { 
+	0% {
+		stroke-dashoffset: 1000;
+	}
+	100% {
+		stroke-dashoffset: 0;
+	}
+}
+@keyframes dash { 
+	0% {
+		stroke-dashoffset: 1000;}
+	100% {
+		stroke-dashoffset: 0;
+	}
+}
+@-webkit-keyframes dash-check { 
+	0% {
+		stroke-dashoffset: -100;
+	}
+	100% {
+		stroke-dashoffset: 900;
+	}
+}
+@keyframes dash-check {
+	0% {
+		stroke-dashoffset: -100;
+	}
+	100% {
+		stroke-dashoffset: 900;
+	}
+}
+.box00{
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}

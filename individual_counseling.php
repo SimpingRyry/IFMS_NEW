@@ -1,17 +1,3 @@
-<?php
-// Database connection
-$conn = new mysqli("localhost", "root", "", "ifms_db");
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Query to fetch data
-$sql = "SELECT `Date`, `StudentNumber`, `Description` FROM student_report";
-$result = $conn->query($sql);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,8 +10,8 @@ $result = $conn->query($sql);
 
     <title>Home_Page_IFMS SICM</title>
 
-    <link rel="stylesheet" href="report_page.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    <link rel="stylesheet" href="indiv_counsel.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
 </head>
 
 <body>
@@ -65,7 +51,7 @@ $result = $conn->query($sql);
         </div>
     </nav>
 
-    <!------------------------------------------------------ OFF_CANVAS -------------------------------------------------------->
+   <!------------------------------------------------------ OFF_CANVAS -------------------------------------------------------->
     <!------------------------------------------------------ OFF_CANVAS -------------------------------------------------------->
 
     <div class="offcanvas offcanvas-start sidebar-nav text-white" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel"
@@ -75,7 +61,7 @@ $result = $conn->query($sql);
             <nav class="navbar-dark">
                 <ul class="navbar-nav navbar_slide">
                     <li>
-                        <a href="home_page.php" class="nav-link px-3 active">
+                        <a href="home_page.php" class="nav-link px-3 active dashboard-link">
                             <span class="me-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trello" viewBox="0 0 16 16">
                                     <path d="M14.1 0H1.903C.852 0 .002.85 0 1.9v12.19A1.9 1.9 0 0 0 1.902 16h12.199A1.9 1.9 0 0 0 16 14.09V1.9A1.9 1.9 0 0 0 14.1 0M7 11.367a.636.636 0 0 1-.64.633H3.593a.633.633 0 0 1-.63-.633V3.583c0-.348.281-.631.63-.633h2.765c.35.002.632.284.633.633zm6.052-3.5a.633.633 0 0 1-.64.633h-2.78A.636.636 0 0 1 9 7.867V3.583a.636.636 0 0 1 .633-.633h2.778c.35.002.631.285.631.633z" />
@@ -96,7 +82,7 @@ $result = $conn->query($sql);
                         </a>
                     </li>
                     <li>
-                        <a href="individual_counseling.php" class="nav-link px-3 active">
+                        <a href="individual_counseling.php" class="nav-link px-3 active indiv-link">
                             <span class="me-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-standing" viewBox="0 0 16 16">
                                     <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M6 6.75v8.5a.75.75 0 0 0 1.5 0V10.5a.5.5 0 0 1 1 0v4.75a.75.75 0 0 0 1.5 0v-8.5a.25.25 0 1 1 .5 0v2.5a.75.75 0 0 0 1.5 0V6.5a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v2.75a.75.75 0 0 0 1.5 0v-2.5a.25.25 0 0 1 .5 0" />
@@ -118,7 +104,7 @@ $result = $conn->query($sql);
                         </a>
                     </li>
                     <li>
-                        <a href="report_page.php" class="nav-link px-3 active report-link">
+                        <a href="report_page.php" class="nav-link px-3 active">
                             <span class="me-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-text-fill" viewBox="0 0 16 16">
                                     <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1m-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5M5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1m0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1" />
@@ -181,40 +167,32 @@ $result = $conn->query($sql);
     <main>
         <div class="container mt-5 pt-5 shadow">
             <div class="container shadow p-0" id="main_box" style="border: 2px solid black;">
-                <div class="dashboard-header" style="background-color: #EDE9E9; padding: 10px; border-bottom: 2px solid #A7A7A7;">
-                    <h2 class="fw-bold" style="color: #7E7E7E;">Reports</h2>
+                <!-- Header Section -->
+                <div class="dashboard-header d-flex justify-content-between align-items-center" style="background-color: #990D35; padding: 10px; border-bottom: 2px solid #B3293C;">
+                    <h2 class="fw-bold" style="color: white;">Students</h2>
+                    <div>
+                        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addStudentModal">Start Counseling</button>
+                  
+                    </div>
                 </div>
-                <div class="table-wrapper">
-                    <table class="table table-striped table-hover">
+
+                <!-- Table Section -->
+                <div class="table-wrapper p-4">
+                    <table id="myTable" class="table table-bordered table-striped table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">DATE</th>
-                                <th scope="col">STUDENT NUMBER</th>
-                                <th scope="col">DESCRIPTION</th>
-                                <th scope="col">Action</th>
+                                <th><input type="checkbox" id="selectAll" onclick="selectAllCheckboxes()"></th>
+                                <th>Student Number</th>
+                                <th>Student Name</th>
+                                <th>Course/Year/Section</th>
+                                <th>Counseling Approach</th>
+                                <th style="text-align: center;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                            if ($result->num_rows > 0) {
-                                $index = 1;
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<th scope='row'>{$index}</th>";
-                                    echo "<td>{$row['Date']}</td>";
-                                    echo "<td>{$row['StudentNumber']}</td>";
-                                    echo "<td>{$row['Description']}</td>";
-                                    echo "<td>
-                                        <button class='btn btn-primary btn-sm edit-btn' data-index='{$index}' data-date='{$row['Date']}' data-student='{$row['StudentNumber']}' data-description='{$row['Description']}'>Edit</button>
-                                        <button class='btn btn-danger btn-sm delete-btn' data-index='{$index}' data-student='{$row['StudentNumber']}'>Delete</button>
-                                      </td>";
-                                    echo "</tr>";
-                                    $index++;
-                                }
-                            } else {
-                                echo "<tr><td colspan='5' class='text-center'>No data available</td></tr>";
-                            }
+                            require './php_functions/function.php';
+                            fetchIndivCounsel(); // Call the function to populate the table
                             ?>
                         </tbody>
                     </table>
@@ -222,122 +200,180 @@ $result = $conn->query($sql);
             </div>
         </div>
 
-        <!-- Edit Modal -->
-        <div id="editModal" class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
+        <!-- Add Student Modal -->
+        <div class="modal fade" id="addStudentModal">
+            <div class="modal-dialog">
                 <div class="modal-content">
+                    <!-- Modal Header -->
                     <div class="modal-header">
-                        <h5 class="modal-title">Edit Report</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <h4 class="modal-title">Add Student For Counseling</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
+                    <!-- Modal Body -->
                     <div class="modal-body">
-                        <form id="editForm">
+
+                        <?= alertMessage(); ?>
+
+                        <form id="addStudentForm" action="counseling_page.php" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
-                                <label for="editDate">Date</label>
-                                <input type="text" id="editDate" class="form-control" required>
+                                <label for="student_number">Student Number:</label>
+                                <input type="text" class="form-control" id="student_number" name="student_number" required>
                             </div>
                             <div class="form-group">
-                                <label for="editStudentNumber">Student Number</label>
-                                <input type="text" id="editStudentNumber" class="form-control" readonly>
+                                <label for="student_name">Student Name:</label>
+                                <input type="text" class="form-control" id="student_name" name="student_name" required>
                             </div>
-                            <div class="form-group">
-                                <label for="editDescription">Description</label>
-                                <textarea id="editDescription" class="form-control" rows="3" required></textarea>
-                            </div>
+                            <br><br><br>
+                            <button  class="btn btn-primary"  id="next">Next</button>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="saveEdit">Save changes</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Delete Confirmation Modal -->
-        <div id="deleteModal" class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Delete Report</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete this report for Student Number <span id="deleteStudentNumber"></span>?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="confirmDelete">Yes, Delete</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
 
-    <script>
+        <div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Counseling Details</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" id="modal_details">
+        Modal body..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
         
-        // Handle Edit Button Click
-        document.querySelectorAll('.edit-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const date = button.getAttribute('data-date');
-                const student = button.getAttribute('data-student');
-                const description = button.getAttribute('data-description');
 
-                document.getElementById('editDate').value = date;
-                document.getElementById('editStudentNumber').value = student;
-                document.getElementById('editDescription').value = description;
 
-                const editModal = new bootstrap.Modal(document.getElementById('editModal'));
-                editModal.show();
+        <!-- Include Chart.js Library -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+        <!-- PARA SA DATATABLE -->
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                $('#myTable').DataTable();
+
+                // Function to select or unselect all checkboxes
+                function selectAllCheckboxes() {
+                    var checkboxes = document.querySelectorAll('.studentCheckbox');
+                    var isChecked = document.getElementById('selectAll').checked;
+                    checkboxes.forEach(function(checkbox) {
+                        checkbox.checked = isChecked;
+                    });
+                }
+
+                // Form validation for empty input fields
+                $('#addStudentForm').submit(function(e) {
+                    let isValid = true;
+
+                    // Check if any input field is empty
+                    $('#addStudentForm input').each(function() {
+                        if ($(this).val() === '') {
+                            isValid = false;
+                        }
+                    });
+
+                    // If form is invalid, show a popup and prevent form submission
+                    if (!isValid) {
+                        e.preventDefault(); // Prevent form submission
+                        alert("Please fill all the input fields.");
+                    }
+                });
+
+                // Function to collect selected student numbers and delete them
+                document.getElementById('deleteButton').addEventListener('click', function() {
+                    var selectedStudents = [];
+                    var checkboxes = document.querySelectorAll('.studentCheckbox:checked');
+
+                    checkboxes.forEach(function(checkbox) {
+                        selectedStudents.push(checkbox.value); // Push student_number
+                    });
+
+                    if (selectedStudents.length === 0) {
+                        alert("No student selected.");
+                        return;
+                    }
+
+                    // Ask for confirmation before deletion
+                    if (confirm("Are you sure you want to delete the selected students?")) {
+                        // Send selected students to the server via AJAX
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "php_functions/function.php", true);
+                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                var response = JSON.parse(xhr.responseText);
+                                if (response.success) {
+                                    alert("Students deleted successfully.");
+                                    location.reload(); // Reload the page to reflect changes
+                                } else {
+                                    alert("Failed to delete students.");
+                                }
+                            }
+                        };
+
+                        // Send student numbers to delete
+                        xhr.send("delete_students=true&student_numbers=" + JSON.stringify(selectedStudents));
+                    }
+                });
             });
-        });
+        </script>
 
-        // Handle Delete Button Click
-        document.querySelectorAll('.delete-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const student = button.getAttribute('data-student');
-                document.getElementById('deleteStudentNumber').innerText = student;
+        <!-- Link to External JS Script -->
+        <script src="script.js"></script>
 
-                const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-                deleteModal.show();
-            });
-        });
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-        // Save Edited Data
-        document.getElementById('saveEdit').addEventListener('click', () => {
-            // Fetch updated values and handle form submission logic
-            const date = document.getElementById('editDate').value;
-            const student = document.getElementById('editStudentNumber').value;
-            const description = document.getElementById('editDescription').value;
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 
-            // Make an AJAX call to save the updated data (implementation not shown)
-            alert(`Saving changes: Date: ${date}, Student: ${student}, Description: ${description}`);
-        });
+            
+     <script>
+$(document).ready(function(){
+    $('.view-button').click(function(){
+  id_emp = $(this).attr('id')
+  const rowNumber = $(this).closest('tr').index()
+  
 
-        // Confirm Delete
-        document.getElementById('confirmDelete').addEventListener('click', () => {
-            // Make an AJAX call to delete the record (implementation not shown)
-            const student = document.getElementById('deleteStudentNumber').innerText;
-            alert(`Deleting record for Student Number: ${student}`);
-        });
-    </script>
+        $.ajax({url: "./php_functions/function.php",
+        method:'post',
+        data:{emp_id:id_emp,
+            rownum:rowNumber
+        },
+         success: function(result){
+    $("#modal_details").html(result);
+  }});
 
 
-    <!-- Include PangDatachart Library -->
-    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+        $('#myModal').modal("show");
+    })
+})
 
-    <!-- Link to External JS Script -->
-    <script src="script.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+
+  </script>
 
 </body>
 

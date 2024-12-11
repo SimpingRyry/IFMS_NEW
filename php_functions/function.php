@@ -129,5 +129,106 @@ if (isset($_POST['delete_students'])) {
         echo json_encode(['success' => false]);
     }
 }
+if(isset($_POST["emp_id"]) && isset($_POST["rownum"]))  
+{
+    
+    $output = '';
+    $rownum = $_POST["rownum"];
 
+
+    global $conn; // Use the global database connection
+    $query = "SELECT student_number, student_name, counsel_Time, counsel_Date ,Counsel_approach, Case_Background, counsel_goals,counsel_comment,counsel_Reco ,`course_year_section`, status 
+              FROM student_list, indiv_counselling 
+              WHERE student_number ='".$_POST["emp_id"]."' LIMIT 1 OFFSET $rownum" ; // Adjust as needed
+    $result = mysqli_query($conn, $query);
+
+
+
+    $output .= '  
+    <div class="table-responsive">  
+         <table class="table table-bordered">';  
+    while($row = mysqli_fetch_assoc($result))  
+    {  
+         $output .= '  
+              <tr>  
+                   <td width="30%"><label>Student Number</label></td>  
+                   <td width="70%">'.$row["student_number"].'</td>  
+              </tr>  
+              <tr>  
+                   <td width="30%"><label>Name</label></td>  
+                   <td width="70%">'.$row["student_name"].'</td>  
+              </tr>  
+              <tr>  
+                   <td width="30%"><label>Course/Year/Section</label></td>  
+                   <td width="70%">'.$row["course_year_section"].'</td>  
+              </tr>  
+              <tr>  
+                   <td width="30%"><label>Case Background</label></td>  
+                   <td width="70%">'.$row["Case_Background"].'</td>  
+              </tr>  
+              <tr>  
+                   <td width="30%"><label>Counsel Approach</label></td>  
+                   <td width="70%">'.$row["Counsel_approach"].' </td>  
+              </tr>  
+               <tr>  
+                   <td width="30%"><label>Counsel Goals</label></td>  
+                   <td width="70%">'.$row["counsel_goals"].' </td>  
+              </tr>  
+                  <tr>  
+                   <td width="30%"><label>Counsel Comment</label></td>  
+                   <td width="70%">'.$row["counsel_comment"].' </td>  
+              </tr>  
+                  <tr>  
+                   <td width="30%"><label>Counsel Recommendation</label></td>  
+                   <td width="70%">'.$row["counsel_Reco"].' </td>  
+              </tr>  
+
+               </tr>  
+                  <tr>  
+                   <td width="30%"><label>Counsel Time</label></td>  
+                   <td width="70%">'.$row["counsel_Time"].' </td>  
+              </tr>  
+                  <tr>  
+                   <td width="30%"><label>Counsel Date</label></td>  
+                   <td width="70%">'.$row["counsel_Date"].' </td>  
+              </tr>  
+              
+              ';  
+    }  
+    $output .= "</table></div>";  
+    echo $output;  
+
+
+
+
+
+
+
+
+}
+
+
+function fetchIndivCounsel()
+{
+    global $conn; // Use the global database connection
+    $query = "SELECT student_number, student_name, Counsel_approach, course_year_section, status 
+              FROM student_list, indiv_counselling 
+              WHERE student_number = StudentID"; // Adjust as needed
+    $result = mysqli_query($conn, $query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<tr>
+                    <td><input type='checkbox' class='studentCheckbox' value='" . htmlspecialchars($row['student_number']) . "'></td> 
+                    <td>" . htmlspecialchars($row['student_number']) . "</td>
+                    <td>" . htmlspecialchars($row['student_name']) . "</td>
+                    <td>" . htmlspecialchars($row['course_year_section']) . "</td>
+                    <td>" . htmlspecialchars($row['Counsel_approach']) . "</td>
+                    <td><button class='btn btn-primary view-button' id='" . htmlspecialchars($row['student_number']) . "'>View</button></td>
+                </tr>";
+        }
+    } else {
+        echo "<tr><td colspan='6'>No data available</td></tr>";
+    }
+}
 ?>
